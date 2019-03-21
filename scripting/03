@@ -1,0 +1,22 @@
+#!/bin/bash
+echo "\033[36mWelcome to the logged user checker !\033[0m"
+quit=0
+while [ $quit -eq 0 ];
+do
+	echo "\033[36mEnter the user to check :\033[0m"
+	read usr
+	if [ ! $(cat /etc/passwd | awk -F: '{print $1}' | grep $usr) ]; then
+		echo "\033[31mUser not found\033[0m"
+	else
+		last $usr | grep $usr | head -n 1 | cut -c 40-
+	fi
+	echo "\033[36mDo you want check another user ? (Y/N)]\033[0m"
+	read yesno
+	if [ "$yesno" = "N" ] || [ "$yesno" = "n" ]; then
+		echo "\033[36mGood bye !\033[0m"
+		quit=1
+	elif [ "$yesno" != "Y" ] && [ "$yesno" != "y" ]; then
+		echo "\033[31mWrong answer, quit.\033[0m"
+		quit=1
+	fi
+done

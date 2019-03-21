@@ -1,0 +1,21 @@
+#!/bin/bash
+echo "Quelle utilisateur voulez-vous supprimer ?"
+echo "(Attention cette operation est irreversible)"
+read user
+if w | grep -q $user; then
+	echo "Etes-vous certain de vouloir supprimer cette utilisateur ? (Y/N)"
+	read yesno
+	if [ "$yesno" = "Y" ] || [ "$yesno" = "y" ]; then
+		su
+		deluser $user
+		rm -Rf /home/$user
+		exit
+		echo "Utilisateur << $user >> supprimer"
+	elif [ "$yesno" = "N" ] || [ "$yesno" = "n" ]; then
+		echo "Annulation"
+	else
+		echo "Reponse de confirmation invalide"
+	fi
+else
+	echo "Utilisateur invalide"
+fi

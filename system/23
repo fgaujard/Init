@@ -1,0 +1,3 @@
+su user_name
+
+ssh username@ip -p port
