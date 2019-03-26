@@ -2,20 +2,20 @@
 echo "Quelle utilisateur voulez-vous supprimer ?"
 echo "(Attention cette operation est irreversible)"
 read user
-if w | grep -q $user; then
+if [ ! $(w | grep -q $user) ]; then
+	echo "Utilisateur invalide"
+else
 	echo "Etes-vous certain de vouloir supprimer cette utilisateur ? (Y/N)"
 	read yesno
 	if [ "$yesno" = "Y" ] || [ "$yesno" = "y" ]; then
-		su
-		deluser $user
-		rm -Rf /home/$user
-		exit
+		echo "Vous devez avoir les droits et y mettre votre MDP"
+		sudo deluser $user
+		sudo rm -Rf /home/$user
+		sudo killall $user
 		echo "Utilisateur << $user >> supprimer"
 	elif [ "$yesno" = "N" ] || [ "$yesno" = "n" ]; then
 		echo "Annulation"
 	else
 		echo "Reponse de confirmation invalide"
 	fi
-else
-	echo "Utilisateur invalide"
 fi
