@@ -2,9 +2,7 @@
 echo "Quelle utilisateur voulez-vous supprimer ?"
 echo "(Attention cette operation est irreversible)"
 read user
-if [ ! $(w | grep -q $user) ]; then
-	echo "Utilisateur invalide"
-else
+if w | grep -q $user ; then
 	echo "Etes-vous certain de vouloir supprimer cette utilisateur ? (Y/N)"
 	read yesno
 	if [ "$yesno" = "Y" ] || [ "$yesno" = "y" ]; then
@@ -18,4 +16,6 @@ else
 	else
 		echo "Reponse de confirmation invalide"
 	fi
+else
+	echo "Utilisateur introuvable"
 fi
