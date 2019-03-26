@@ -1,4 +1,4 @@
 #!/bin/bash
 echo "Voici votre demande :"
-echo "Login		    UID	   Path:"
+echo "Login		    UID	   Path:\n"
 cat /etc/passwd | awk -F: '{print $1 " " $3 " " $6}' | column -t
